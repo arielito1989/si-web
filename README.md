@@ -2,6 +2,8 @@
 
 Página web corporativa y portafolio de **SI Soluciones Industriales**, empresa de ingeniería industrial con sede en Presidente Derqui, Buenos Aires, Argentina. Diseñada para proyectar una imagen profesional de alto impacto, con estética premium acorde a los estándares de la industria.
 
+🔗 **Sitio en producción:** Desplegado en Netlify con dominio personalizado.
+
 ---
 
 ## 🚀 Stack Tecnológico
@@ -11,6 +13,7 @@ Página web corporativa y portafolio de **SI Soluciones Industriales**, empresa 
 | **React** | 19 | Framework UI — componentes, hooks, estado |
 | **Vite** | 7 | Build tool — dev server ultrarrápido, bundle optimizado |
 | **Tailwind CSS** | v4 | Utility-first CSS — diseño responsivo completo |
+| **Netlify** | — | Hosting + formulario de contacto (Netlify Forms) |
 | **Google Fonts** | — | Oswald (títulos) + Barlow (cuerpo) |
 
 > **Tailwind v4**: Configuración vía `@theme {}` en `src/index.css`. No usa `tailwind.config.js`. Los colores, fuentes y animaciones personalizadas se definen como variables CSS dentro de `@theme`.
@@ -32,12 +35,21 @@ Página web corporativa y portafolio de **SI Soluciones Industriales**, empresa 
 - Escala base: body desde `text-base` (16px), descripciones `text-xl`, títulos de sección `text-5xl–7xl`
 
 ### Animaciones personalizadas (definidas en `src/index.css`)
-- `scroll-line` — indicador de scroll animado en el Hero
-- `pulse-ring` — anillos concéntricos del botón WhatsApp flotante
-- `shimmer` — gradiente animado sobre el headline del Hero
-- `fade-in` / `scale-up` — apertura del lightbox de la galería
-- `skeleton-pulse` — placeholder pulsante mientras cargan imágenes en la galería
-- `swipe-hint` / `swipe-hint-reverse` — indicador de deslizamiento en lightbox mobile
+| Animación | Uso |
+|---|---|
+| `scroll-line` | Indicador de scroll animado en el Hero |
+| `pulse-ring` | Anillos concéntricos del botón WhatsApp flotante |
+| `shimmer` | Gradiente animado sobre el headline del Hero |
+| `fade-in` / `scale-up` | Apertura del lightbox de la galería |
+| `fade-in-up` | Entrada de elementos con RevealOnScroll |
+| `scale-x-left` | Barra de escala lateral izquierda |
+| `skeleton-pulse` | Placeholder pulsante mientras cargan imágenes en la galería |
+| `swipe-hint` / `swipe-hint-reverse` | Indicador de deslizamiento en lightbox mobile |
+
+### Estilos globales
+- **Smooth scroll** en todo el sitio
+- **Scrollbar personalizado** — thumb rojo con track oscuro
+- **Selection** — fondo rojo con texto claro
 
 ---
 
@@ -46,109 +58,232 @@ Página web corporativa y portafolio de **SI Soluciones Industriales**, empresa 
 ```text
 si-web/
 ├── public/
-│   ├── FOTOS/                  # Fotos de proyectos (galería)
-│   │   ├── aislacion/
-│   │   ├── caldera/
-│   │   ├── conexioninox/
-│   │   ├── inox/
-│   │   └── *.png / *.jpeg
-│   ├── logosi.png              # Isotipo (marca de agua, footer)
-│   ├── si_soluciones.png       # Logo principal (navbar)
-│   ├── titu.png                # Imagen de fondo del Hero
-│   └── piecarpeta.png          # Imagen de fondo del Footer
+│   ├── FOTOS/                    # Fotos de proyectos (galería)
+│   │   ├── aislacion/            #   └── Fotos de aislación térmica
+│   │   ├── caldera/              #   └── Fotos de calderas
+│   │   ├── conexioninox/         #   └── Fotos de conexiones inoxidables
+│   │   ├── inox/                 #   └── Fotos de acero inoxidable
+│   │   └── *.webp                #   └── Fotos sueltas (naves, electricidad, red incendio, tubos)
+│   ├── logosi.webp               # Isotipo (marca de agua, footer)
+│   ├── logosi.png                # Isotipo PNG (favicon)
+│   ├── si_soluciones.webp        # Logo principal (navbar)
+│   ├── titu.webp                 # Imagen de fondo del Hero
+│   └── piecarpeta.webp           # Imagen de fondo del Footer
 ├── src/
 │   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── HeroSection.jsx
-│   │   ├── AboutSection.jsx
-│   │   ├── ServicesSection.jsx
-│   │   ├── ProjectsGallery.jsx
-│   │   ├── ContactFooter.jsx
-│   │   ├── FloatingWhatsApp.jsx
-│   │   ├── ScrollControls.jsx
-│   │   └── RevealOnScroll.jsx
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css               # Tema Tailwind v4 + animaciones globales
-├── index.html
-├── vite.config.js
+│   │   ├── Navbar.jsx            # Barra de navegación fija
+│   │   ├── HeroSection.jsx       # Sección hero con animaciones
+│   │   ├── AboutSection.jsx      # Nosotros + stats animadas
+│   │   ├── ServicesSection.jsx   # 6 tarjetas de servicios
+│   │   ├── ProcessSection.jsx    # 5 pasos del proceso de trabajo
+│   │   ├── ProjectsGallery.jsx   # Galería filtrable + lightbox
+│   │   ├── ContactFooter.jsx     # Formulario + contacto + footer
+│   │   ├── FloatingWhatsApp.jsx  # Botón WhatsApp flotante
+│   │   ├── ScrollControls.jsx    # Botones scroll arriba/abajo
+│   │   └── RevealOnScroll.jsx    # Wrapper de animación al scroll
+│   ├── App.jsx                   # Composición principal de secciones
+│   ├── main.jsx                  # Entry point (React StrictMode)
+│   └── index.css                 # Tema Tailwind v4 + animaciones globales
+├── index.html                    # HTML base con SEO + form oculto Netlify
+├── vite.config.js                # Config Vite (React + Tailwind plugins)
 └── package.json
 ```
 
 ---
 
-## 🏗️ Componentes
+## 🏗️ Componentes (10)
+
+El flujo de secciones en `App.jsx` es:
+**Navbar → Hero → About → Services → Process → Projects → Contact/Footer**
++ componentes flotantes: **FloatingWhatsApp** y **ScrollControls**
+
+---
 
 ### `Navbar.jsx`
-- Barra fija con fondo transparente → blur/blanco al hacer scroll
-- **Logo más grande** (`h-16`) en posición inicial, se reduce a `h-9` al hacer scroll
-- **Barra de progreso de lectura** (roja, 3px, top) que crece con el scroll
-- **Detección de sección activa** via `IntersectionObserver` — subraya el link correspondiente
-- Menú hamburguesa animado en mobile (3 barras con transform CSS)
-- Link "Cotizar" como CTA rojo con efecto shadow-press
+Barra de navegación fija con comportamiento dinámico según scroll.
+
+- **Fondo dinámico**: transparente → `bg-white/95 backdrop-blur-md` al pasar 50px de scroll
+- **Logo adaptativo**: `h-16` en posición inicial (hero), se reduce a `h-9` al hacer scroll
+- **Barra de progreso de lectura**: línea roja de 3px en el top que crece con el scroll del documento
+- **Detección de sección activa**: `IntersectionObserver` monitorea 5 secciones (`nosotros`, `servicios`, `proceso`, `casos-exito`, `contacto`) y subraya el link correspondiente con borde rojo animado
+- **Menú hamburguesa mobile**: 3 barras con transform CSS (X animada), menú desplegable con stagger
+- **CTA "Cotizar"**: botón rojo con efecto shadow-press que abre WhatsApp
+- **Links de contacto en mobile**: teléfono y email visibles en el menú hamburguesa
+
+---
 
 ### `HeroSection.jsx`
-- Imagen de fondo con overlay gradiente oscuro + grid industrial semitransparente
-- **Animaciones de entrada escalonadas** (stagger) via `opacity` + `translateY` inline
-- Línea acento roja en el borde izquierdo
-- Badge de certificación OPDS animado
-- Headline con **efecto shimmer** en el gradiente rojo
-- Subtítulo `text-xl sm:text-2xl` con borde izquierdo rojo
-- **Strip de estadísticas** en la parte inferior: 15+ años / 200+ proyectos / 100% certificados / 0 errores
-- **Indicador "Descubrir"** centrado, visible en todos los tamaños, con línea animada
+Sección de impacto inicial a viewport completo con animaciones de entrada.
+
+- **Imagen de fondo** (`titu.webp`) con 3 capas de overlay: gradiente oscuro + tinte rojo + grid industrial semitransparente
+- **Animaciones de entrada escalonadas** (stagger 400ms–920ms) vía `opacity` + `translateY` inline controladas con `useEffect`
+- **Badge de certificación OPDS** con punto pulsante verde
+- **Headline con efecto shimmer**: gradiente rojo animado sobre "de Precisión"
+- **Subtítulo** `text-xl sm:text-2xl` con borde izquierdo rojo
+- **Dual CTAs**: "Iniciar Proyecto" (rojo, link a WhatsApp) + "Ver Proyectos" (outlined, scroll a galería)
+- **Strip de estadísticas** inferior: `15+ años` / `200+ proyectos` / `100% certificados` / `0% margen de error`
+- **Indicador "Descubrir"** centrado con línea animada (`scroll-line`)
+
+---
 
 ### `AboutSection.jsx`
-- Texto corporativo `text-xl` con párrafo destacado en borde rojo
-- 3 diferenciales (Seguridad Certificada, Ingeniería de Precisión, Servicio Integral) con iconos
-- **Grilla de stats con conteo animado** (`requestAnimationFrame` + ease-out cúbico) que se activa al entrar en viewport
-- Números grandes (`text-6xl sm:text-7xl`) en rojo; etiquetas `text-base font-black`
+Presentación corporativa con valores y estadísticas animadas.
+
+- **Layout 2 columnas** (mobile: stack vertical)
+- **Columna izquierda**: título + 3 tarjetas de valores con iconos SVG:
+  - Seguridad Certificada
+  - Ingeniería de Precisión
+  - Servicio Integral
+- **Columna derecha**: grilla 2×2 de estadísticas con **conteo animado**
+  - Componente interno `AnimatedStat` usa `requestAnimationFrame` + ease-out cúbico
+  - Se activa con `IntersectionObserver` al entrar en viewport
+  - Duración: 1800ms
+  - Stats: `15+ años`, `200+ proyectos`, `100%`, `0 errores`
+  - Números grandes `text-6xl sm:text-7xl` en rojo, etiquetas `text-base font-black`
+- **Marca de agua** del logo en esquina inferior derecha (10% opacity)
+
+---
 
 ### `ServicesSection.jsx`
-- **6 tarjetas de servicios** elevadas con `border`, `shadow`, `hover:-translate-y-2` y sombra que se intensifica
-- Header con fondo translúcido (`bg-white/50 backdrop-blur-sm`) y borde rojo para máxima legibilidad sobre la imagen de fondo
-- Imagen de fondo con overlay `bg-si-bg/45` para mayor nitidez
-- Barra superior por tarjeta (gris → roja en hover)
-- Ícono SVG por servicio + número fantasma de fondo
-- Servicios: Calderas y Presión, Piping, Sistemas de Seguridad, Fabricación e Infraestructura, Electricidad y Automatización, Aislación Térmica
-- CTA inferior con fondo `bg-white/60 backdrop-blur-sm` para legibilidad
-- Grid responsive: 1 columna (mobile) → 2 columnas (tablet) → 3 columnas (desktop)
+Catálogo de 6 especialidades técnicas con tarjetas interactivas.
+
+- **Imagen de fondo** (`redincendio1.webp`) con overlay `bg-si-bg/45` para nitidez
+- **Header** con fondo translúcido `bg-white/50 backdrop-blur-sm` y borde rojo izquierdo
+- **6 tarjetas** en grid responsive (1 col → 2 col → 3 col):
+
+| # | Servicio | Items principales |
+|---|---|---|
+| 01 | Calderas y Presión | Reparación, Instalación, Habilitación OPDS |
+| 02 | Piping | Acero al Carbono, Acero Inoxidable, PRFV |
+| 03 | Sistemas de Seguridad | Red Contra Incendios, Detección, Rociadores |
+| 04 | Fabricación e Infraestructura | Naves Industriales, Tanques, Estructuras |
+| 05 | Electricidad y Automatización | Tableros, Cableado, Sistemas de Control |
+| 06 | Aislación Térmica | Cañerías/Equipos, Chapa de Aluminio, Protección Industrial |
+
+- **Hover por tarjeta**: `translateY(-8px)`, sombra intensificada, barra superior gris → roja, ícono cambia color
+- **Número fantasma** de fondo por tarjeta (01–06)
+- **CTA inferior**: fondo `bg-white/60 backdrop-blur-sm`, texto "¿Necesita una solución que no aparece?" + botón rojo
+
+---
+
+### `ProcessSection.jsx`
+Visualización del flujo de trabajo en 5 pasos.
+
+- **Fondo oscuro** (`#111`) con grid industrial overlay
+- **5 pasos secuenciales**:
+
+| Paso | Título | Descripción |
+|---|---|---|
+| 01 | Consulta Inicial | Recepción de requerimientos técnicos |
+| 02 | Visita en Planta | Relevamiento y mediciones in situ |
+| 03 | Propuesta Técnica | Presupuesto detallado con especificaciones |
+| 04 | Ejecución | Implementación con supervisión permanente |
+| 05 | Entrega Certificada | Documentación y habilitaciones |
+
+- **Desktop**: layout horizontal con líneas conectoras entre pasos
+- **Mobile**: layout vertical con conectores verticales
+- **Badges numerados** (01–05) en esquina superior derecha
+- **Garantía de respuesta** < 24 horas destacada
+
+---
 
 ### `ProjectsGallery.jsx`
-- **Filtros por categoría** (Todos / Infraestructura / Seguridad / Tuberías / etc.) con conteo visible en todos los filtros
-- **Animación de transición suave** (fade opacity) al cambiar de filtro
-- Grid uniforme `1→2→3 columnas` con `aspect-square`, efecto grayscale → color en hover + borde rojo
-- **Ícono de galería/lupa** centrado que aparece en hover, indicando que la tarjeta es clickeable
-- **Skeleton placeholder** animado (`skeleton-pulse`) mientras cargan las imágenes
-- **`loading="lazy"`** en las imágenes del grid para mejor performance inicial
-- **Subtítulo** con `text-2xl font-semibold` y borde rojo izquierdo para alta legibilidad
-- **CTA "Solicitar Presupuesto"** banner oscuro (#111) con grid industrial overlay y botón rojo shadow-press
-- **Lightbox personalizado** sin librerías externas:
-  - Panel de imagen (62%) + panel de info lateral
-  - **Contador de imagen** "2 / 4" en esquina superior izquierda
-  - Navegación por click, teclado (←→ Esc) y swipe táctil
-  - **Indicador de swipe** "← Deslizá →" en mobile (desaparece tras primer gesto)
-  - **Bloqueo de scroll del body** cuando el lightbox está abierto
-  - Thumbnails interactivos con borde activo en rojo
-  - **Ficha técnica del proyecto**: cliente, ubicación, materiales, duración (grid 2×2 con iconos)
-- 8 proyectos: Naves Industriales, Red Contra Incendios, Tuberías Sanitarias, Conexiones Inoxidables, Tanques Industriales, etc.
+Galería de portafolio filtrable con lightbox personalizado.
+
+**Grid:**
+- **8 proyectos** con categorías: Infraestructura, Seguridad, Tuberías, Ingeniería, Automatización, Mantenimiento, Calderas, Fabricación
+- **Filtros por categoría** con conteo visible `(N)` en cada botón
+- **Animación de transición**: fade suave (opacity 0→1, 150ms) al cambiar filtro
+- **Grid uniforme** `1→2→3 columnas` con `aspect-square`
+- **Hover**: grayscale → color, scale 1.05×, borde rojo, lupa centrada con fondo rojo
+- **Badge de conteo de fotos** ("3 fotos") en cada tarjeta
+- **`loading="lazy"`** en todas las imágenes
+- **Skeleton placeholder** (`skeleton-pulse`) mientras cargan
+
+**Lightbox (sin librerías externas):**
+- **Layout split**: panel de imagen (62%) + panel de info lateral (38%)
+- **Contador de imagen** "2 / 4" en esquina superior izquierda
+- **Navegación triple**: click en flechas, teclado (← → Esc), swipe táctil
+- **Indicador de swipe** "← Deslizá →" en mobile (desaparece tras primer gesto)
+- **Bloqueo de scroll** del body cuando está abierto
+- **Thumbnails interactivos** en grid 5 columnas con borde activo rojo
+- **Ficha técnica del proyecto**: grid 2×2 con iconos SVG (cliente, ubicación, materiales, duración)
+
+**CTA inferior**: banner oscuro (#111) con grid overlay, etiqueta "Consulta Gratuita" y botón rojo shadow-press
+
+**Datos por proyecto:**
+```js
+{ title, category, description, images[], client, location, materials, duration }
+```
+
+---
 
 ### `ContactFooter.jsx`
-- Header con título impactante `text-5xl–7xl`
-- 3 items de contacto: Teléfono / Email / Ubicación (con iconos y sublabels)
-- Formulario con inputs `text-base`, labels `text-xs uppercase`, 2 columnas (Nombre + Empresa)
-- CTA "Enviar Consulta" en rojo con shadow-press
-- **Footer bar**: logo + separador + nombre empresa + créditos de desarrollo
+Formulario de contacto funcional + datos de contacto + footer.
+
+**Header CTA**: título impactante `text-5xl–7xl` "¿Listo para su Proyecto?"
+
+**Layout 2 columnas:**
+- **Izquierda**: 3 items de contacto con iconos y hover:
+  - 📞 `11 6867-4207` (Lunes a Viernes, 8–18hs)
+  - 📧 `solucionesindustrialesns@gmail.com`
+  - 📍 Presidente Derqui, Buenos Aires
+- **Derecha**: Formulario con **Netlify Forms**
+
+**Formulario (Netlify Forms):**
+- **Campos**: Nombre (required), Empresa, Email (required), Consulta Técnica (required)
+- **Anti-spam**: campo honeypot oculto (`bot-field`) — invisible para humanos, atrapa bots
+- **Atributos**: `data-netlify="true"`, `data-netlify-honeypot="bot-field"`, `name="contact"`
+- **Form oculto en `index.html`**: replica los campos para que Netlify detecte el formulario en el build (necesario para SPAs React)
+- **Estados del formulario**:
+  - `idle` → formulario normal
+  - `submitting` → botón deshabilitado con spinner "Enviando..."
+  - `success` → check verde + "Consulta Enviada" + "Nos pondremos en contacto en menos de 24hs" + link "Enviar otra consulta"
+  - `error` → banner rojo con mensaje de fallback al teléfono
+- **Submit via `fetch`** a `/` con `Content-Type: application/x-www-form-urlencoded`
+
+**Footer bar**: logo + separador + nombre empresa + créditos de desarrollo (Ariel Nogueroles)
+
+**Configuración Netlify (dashboard, sin código):**
+- Los envíos se guardan en **Netlify → Forms → contact**
+- Notificaciones por email: **Form notifications → Email notification** → `solucionesindustrialesns@gmail.com`
+
+---
 
 ### `FloatingWhatsApp.jsx`
-- Botón circular rojo en esquina inferior derecha
-- **Doble anillo pulse** (2 anillos con `animation-delay` escalonado)
-- Tooltip que aparece al hover con nombre y número
-- Número: `+54 9 11 6867-4207`
+Botón flotante de WhatsApp fijo en esquina inferior derecha.
+
+- **Botón circular verde** (`#25D366`) con icono SVG de WhatsApp
+- **Doble anillo pulse**: 2 anillos con `animation-delay` escalonado (efecto radar)
+- **Tooltip en hover**: "Escribir por WhatsApp" con nombre de la empresa
+- **Link directo** con mensaje prellenado: `"Hola, me comunico desde su sitio web..."`
+- **Número**: `+54 9 11 6867-4207`
+- **z-index**: 30 para estar sobre todo el contenido
+
+---
+
+### `ScrollControls.jsx`
+Botones de navegación vertical (arriba/abajo).
+
+- **Aparecen** después de 300px de scroll
+- **Posición**: lado derecho, arriba del botón de WhatsApp
+- **Botón arriba**: fondo claro (`si-bg`) con borde
+- **Botón abajo**: fondo rojo (`si-red`)
+- **Smooth scroll** al top / bottom del documento
+- **Hover**: iconos se desplazan sutilmente en su dirección
+
+---
 
 ### `RevealOnScroll.jsx`
-- Wrapper genérico con `IntersectionObserver`
-- Props: `direction` (`up` / `left` / `right`), `delay` (ms)
-- Aplica `opacity: 0 → 1` + `translateY/X` con transición CSS
+Componente wrapper reutilizable para animaciones de entrada al scroll.
+
+- **`IntersectionObserver`** con threshold 0 y rootMargin `-50px` en bottom
+- **Props configurables**:
+  - `direction`: `up` | `down` | `left` | `right` | `none`
+  - `delay`: milisegundos de retraso (para stagger entre elementos)
+  - `className`: clases adicionales
+- **Transición**: `opacity: 0 → 1` + `translateY/X` según dirección, 1000ms con `cubic-bezier(0, 0, 0.2, 1)`
+- **Optimización**: `will-change: transform, opacity` + `unobserve` tras primera activación
 
 ---
 
@@ -166,89 +301,71 @@ npm run build
 
 # 4. Preview del build
 npm run preview
+
+# 5. Lint
+npm run lint
 ```
 
 ---
 
-## 🚢 Despliegue en Producción
+## 🚢 Despliegue
 
-### Opción A — Netlify (Recomendado, gratis)
+### Netlify (Configuración actual)
 
-1. Ir a [netlify.com](https://netlify.com) → **Add new site → Import an existing project**
-2. Conectar el repositorio de GitHub
-3. Configurar:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `dist`
-4. Click en **Deploy site** — listo en ~1 minuto
+El sitio está desplegado en **Netlify** con deploy automático desde GitHub.
 
-> Para redirecciones SPA (si se agrega routing), crear `public/_redirects` con:
-> ```
-> /* /index.html 200
-> ```
+| Configuración | Valor |
+|---|---|
+| **Repositorio** | `arielito1989/si-web` (branch `main`) |
+| **Build command** | `npm run build` |
+| **Publish directory** | `dist` |
+| **Form detection** | Activado (Netlify Forms) |
 
-### Opción B — Vercel (Gratis, zero-config)
+Cada push a `main` dispara un deploy automático (~1 minuto).
 
-```bash
-# Instalar CLI de Vercel
-npm i -g vercel
+**Netlify Forms:**
+- Los envíos del formulario de contacto se almacenan en **Netlify Dashboard → Forms → contact**
+- Las notificaciones por email se configuran en **Form notifications → Email notification**
+- Anti-spam honeypot activado desde el código
 
-# Desde la carpeta del proyecto
-vercel
+---
 
-# Seguir el wizard: Framework = Vite, Build = npm run build, Output = dist
-```
+## 🔍 SEO
 
-### Opción C — GitHub Pages
-
-```bash
-# Instalar gh-pages
-npm install --save-dev gh-pages
-```
-
-Agregar en `package.json`:
-```json
-"scripts": {
-  "deploy": "npm run build && gh-pages -d dist"
-}
-```
-
-Agregar en `vite.config.js`:
-```js
-export default defineConfig({
-  base: '/nombre-del-repo/',   // ← nombre exacto del repositorio
-  plugins: [react()],
-})
-```
-
-```bash
-npm run deploy
-```
-
-### Opción D — Servidor propio (VPS / cPanel)
-
-```bash
-npm run build
-# Subir el contenido de /dist/ al directorio raíz del servidor web (Apache/Nginx)
-```
-
-Para **Nginx**, configurar para SPA:
-```nginx
-location / {
-  try_files $uri $uri/ /index.html;
-}
-```
+Configurado en `index.html`:
+- **Meta description** y **keywords** con términos de ingeniería industrial + Buenos Aires
+- **Open Graph** (WhatsApp, LinkedIn, Facebook): título, descripción, imagen (`titu.png`)
+- **Twitter Card**: summary_large_image
+- **Favicon**: `logosi.png`
+- **Theme color**: `#c00000`
+- **Idioma**: `es` (español)
 
 ---
 
 ## 📋 Pendientes / Próximos pasos
 
-- [ ] **Backend del formulario de contacto** — Conectar a EmailJS, Formspree o endpoint propio para que los mensajes lleguen al email
-- [ ] **Dominio personalizado** — Apuntar DNS al servicio de hosting elegido
-- [ ] **Google Analytics / Tag Manager** — Agregar tracking de visitas
+- [ ] **Google Analytics / Tag Manager** — Agregar tracking de visitas y conversiones
+- [ ] **Optimización de imágenes** — Evaluar compresión adicional o CDN para las fotos de la galería
+- [ ] **Accesibilidad (a11y)** — Revisar contraste, aria-labels, navegación por teclado completa
+- [ ] **Página 404** — Diseñar página de error consistente con la identidad visual
 
 ---
 
 ## 📝 Changelog
+
+### 2026-02-28 — Formulario de contacto funcional (Netlify Forms)
+
+**ContactFooter (`ContactFooter.jsx`):**
+1. **Integración Netlify Forms** — `data-netlify="true"` con submit vía `fetch` (SPA-compatible)
+2. **Anti-spam honeypot** — Campo oculto `bot-field` que atrapa bots automáticamente
+3. **Campos con `name`** — `nombre`, `empresa`, `email`, `consulta` (legibles en el dashboard de Netlify)
+4. **Validación HTML5** — `required` en nombre, email y consulta
+5. **Estado "submitting"** — Botón deshabilitado con spinner animado y texto "Enviando..."
+6. **Estado "success"** — Check verde + "Consulta Enviada" + link "Enviar otra consulta"
+7. **Estado "error"** — Banner rojo con mensaje de fallback al teléfono
+
+**HTML (`index.html`):**
+8. **Formulario oculto** — Réplica estática del form para que Netlify lo detecte en el build (requisito para SPAs)
 
 ### 2026-02-28 — Mejoras en Servicios, Proyectos y Navbar
 
