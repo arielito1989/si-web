@@ -55,7 +55,9 @@ export default function ProjectsGallery() {
             location: "Zona Norte, Buenos Aires",
             materials: "Acero estructural, chapa galvanizada",
             duration: "—"
-        },category: "Seguridad",
+        },
+        {
+            id: 2, title: "Red Contra Incendios", category: "Seguridad",
             images: ["/FOTOS/redincendio1.webp", "/FOTOS/redincendio2.webp", "/FOTOS/redincendio3.webp"],
             description: "Implementación de sistema completo incluyendo sala de bombas y red de rociadores bajo norma.",
             client: "Complejo Industrial",
