@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CONTACT, getPhoneUrl, getEmailUrl } from '../constants/contact';
+import { CONTACT, getPhoneUrl, getGmailComposeUrl } from '../constants/contact';
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -153,7 +153,7 @@ export default function Navbar() {
                         </span>
                         {CONTACT.phone.display}
                     </a>
-                    <a href={getEmailUrl()} className="flex items-center gap-3 text-si-text/50 text-sm hover:text-si-red transition-colors">
+                    <a href={getGmailComposeUrl()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-si-text/50 text-sm hover:text-si-red transition-colors">
                         <span className="w-8 h-8 border border-si-red/20 flex items-center justify-center flex-shrink-0">
                             <svg className="w-3.5 h-3.5 text-si-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="square" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                         </span>

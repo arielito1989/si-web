@@ -31,3 +31,7 @@ export const getWhatsAppUrl = () => {
 
 export const getPhoneUrl = () => `tel:${CONTACT.phone.raw}`;
 export const getEmailUrl = () => `mailto:${CONTACT.email.full}`;
+export const getGmailComposeUrl = () => {
+  const subject = encodeURIComponent('Consulta desde sitio web');
+  return `https://mail.google.com/mail/?view=cm&to=${CONTACT.email.full}&su=${subject}`;
+};

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import RevealOnScroll from './RevealOnScroll';
-import { CONTACT, getPhoneUrl, getEmailUrl } from '../constants/contact';
+import { CONTACT, getPhoneUrl, getGmailComposeUrl } from '../constants/contact';
 
 export default function ContactFooter() {
     const [formState, setFormState] = useState('idle'); // idle | submitting | success | error
@@ -41,7 +41,7 @@ export default function ContactFooter() {
             ),
         },
         {
-            href: getEmailUrl(),
+            href: getGmailComposeUrl(),
             label: CONTACT.email.user,
             sublabel: CONTACT.email.domain,
             icon: (
