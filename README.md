@@ -81,6 +81,8 @@ si-web/
 │   │   ├── FloatingWhatsApp.jsx  # Botón WhatsApp flotante
 │   │   ├── ScrollControls.jsx    # Botones scroll arriba/abajo
 │   │   └── RevealOnScroll.jsx    # Wrapper de animación al scroll
+│   ├── constants/
+│   │   └── contact.js            # Datos centralizados de contacto (tel, email, WhatsApp, dirección)
 │   ├── App.jsx                   # Composición principal de secciones
 │   ├── main.jsx                  # Entry point (React StrictMode)
 │   └── index.css                 # Tema Tailwind v4 + animaciones globales
@@ -225,8 +227,8 @@ Formulario de contacto funcional + datos de contacto + footer.
 
 **Layout 2 columnas:**
 - **Izquierda**: 3 items de contacto con iconos y hover:
-  - 📞 `11 6867-4207` (Lunes a Viernes, 8–18hs)
-  - 📧 `solucionesindustrialesns@gmail.com`
+  - 📞 `11 6867-4207` (Lunes a Viernes, 8–18hs) — abre `tel:` nativo
+  - 📧 `solucionesindustrialesns@gmail.com` — abre **Gmail Compose en nueva pestaña** con destinatario y asunto prellenados
   - 📍 Presidente Derqui, Buenos Aires
 - **Derecha**: Formulario con **Netlify Forms**
 
@@ -352,6 +354,21 @@ Configurado en `index.html`:
 ---
 
 ## 📝 Changelog
+
+### 2026-02-28 — Seguridad, centralización y mejora de email
+
+**Seguridad:**
+1. **`npm audit fix`** — Corregidas 2 vulnerabilidades high (minimatch ReDoS + rollup path traversal)
+2. **Auditoría completa** — Verificado: sin secrets, API keys, console.logs, XSS, localStorage ni .env expuestos
+
+**Centralización de contacto (`src/constants/contact.js`):**
+3. **Nuevo archivo de constantes** — Teléfono, email, WhatsApp, dirección y helpers (`getWhatsAppUrl`, `getPhoneUrl`, `getGmailComposeUrl`)
+4. **Refactor de 4 componentes** — Navbar, ContactFooter, ProcessSection, FloatingWhatsApp usan constantes en vez de datos hardcodeados
+5. **Mantenibilidad** — Cambiar teléfono o email ahora requiere editar 1 solo archivo
+
+**Email — Gmail Compose:**
+6. **Link directo a Gmail** — Al clickear el email se abre `mail.google.com` en nueva pestaña (antes usaba `mailto:` que no hacía nada en muchas PCs)
+7. **Asunto prellenado** — "Consulta desde sitio web" aparece automáticamente en el campo asunto
 
 ### 2026-02-28 — Formulario de contacto funcional (Netlify Forms)
 
