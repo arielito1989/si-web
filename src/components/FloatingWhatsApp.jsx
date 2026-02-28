@@ -1,3 +1,5 @@
+import { getWhatsAppUrl } from '../constants/contact';
+
 export default function FloatingWhatsApp() {
     return (
         <div className="fixed bottom-6 right-6 z-30 flex items-center gap-3 group">
@@ -13,7 +15,7 @@ export default function FloatingWhatsApp() {
                 <span className="absolute inset-0 rounded-none bg-[#25D366] animate-[pulse-ring_2s_ease-out_0.6s_infinite] opacity-0" />
 
                 <a
-                    href="https://wa.me/5491168674207?text=Hola%2C%20me%20comunico%20desde%20su%20sitio%20web.%20Quisiera%20consultar%20sobre%20sus%20servicios%20industriales."
+                    href={getWhatsAppUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="relative flex items-center justify-center w-14 h-14 bg-[#25D366] text-white shadow-[4px_4px_0px_rgba(0,0,0,0.5)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.5)] hover:translate-y-[2px] hover:translate-x-[2px] transition-all duration-200"
