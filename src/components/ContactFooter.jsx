@@ -1,6 +1,33 @@
+import { useState } from 'react';
 import RevealOnScroll from './RevealOnScroll';
 
 export default function ContactFooter() {
+    const [formState, setFormState] = useState('idle'); // idle | submitting | success | error
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setFormState('submitting');
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        try {
+            const res = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString(),
+            });
+
+            if (res.ok) {
+                setFormState('success');
+                form.reset();
+            } else {
+                setFormState('error');
+            }
+        } catch {
+            setFormState('error');
+        }
+    };
     const contactItems = [
         {
             href: "tel:+5491168674207",
@@ -122,12 +149,45 @@ export default function ContactFooter() {
                     <RevealOnScroll direction="right" delay={200} className="border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm p-8">
                         <h3 className="text-base font-black uppercase tracking-widest text-white mb-1">Envíanos un Mensaje</h3>
                         <div className="w-8 h-[2px] bg-si-red mb-6" />
-                        <form className="flex flex-col gap-4">
+                        {formState === 'success' ? (
+                            <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
+                                <div className="w-14 h-14 bg-green-500/10 border border-green-500/30 flex items-center justify-center">
+                                    <svg className="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="square" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p className="text-white font-black uppercase tracking-widest text-sm mb-1">Consulta Enviada</p>
+                                    <p className="text-gray-400 font-light text-sm">Nos pondremos en contacto en menos de 24hs.</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setFormState('idle')}
+                                    className="text-xs text-si-red font-bold uppercase tracking-widest hover:text-red-400 transition-colors mt-2"
+                                >
+                                    Enviar otra consulta →
+                                </button>
+                            </div>
+                        ) : (
+                        <form
+                            name="contact"
+                            method="POST"
+                            data-netlify="true"
+                            data-netlify-honeypot="bot-field"
+                            onSubmit={handleSubmit}
+                            className="flex flex-col gap-4"
+                        >
+                            <input type="hidden" name="form-name" value="contact" />
+                            <p className="hidden">
+                                <label>No completar: <input name="bot-field" /></label>
+                            </p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="flex flex-col gap-1.5">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Nombre</label>
                                     <input
+                                        name="nombre"
                                         type="text"
+                                        required
                                         placeholder="Juan García"
                                         className="bg-white/[0.05] border border-white/10 px-4 py-3 text-white text-base placeholder-gray-600 focus:outline-none focus:border-si-red transition-colors"
                                     />
@@ -135,6 +195,7 @@ export default function ContactFooter() {
                                 <div className="flex flex-col gap-1.5">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Empresa</label>
                                     <input
+                                        name="empresa"
                                         type="text"
                                         placeholder="Empresa S.A."
                                         className="bg-white/[0.05] border border-white/10 px-4 py-3 text-white text-base placeholder-gray-600 focus:outline-none focus:border-si-red transition-colors"
@@ -144,7 +205,9 @@ export default function ContactFooter() {
                             <div className="flex flex-col gap-1.5">
                                 <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Correo Electrónico</label>
                                 <input
+                                    name="email"
                                     type="email"
+                                    required
                                     placeholder="email@empresa.com"
                                     className="bg-white/[0.05] border border-white/10 px-4 py-3 text-white text-base placeholder-gray-600 focus:outline-none focus:border-si-red transition-colors"
                                 />
@@ -152,21 +215,47 @@ export default function ContactFooter() {
                             <div className="flex flex-col gap-1.5">
                                 <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Consulta Técnica</label>
                                 <textarea
+                                    name="consulta"
+                                    required
                                     placeholder="Describa brevemente el proyecto o necesidad..."
                                     rows="4"
                                     className="bg-white/[0.05] border border-white/10 px-4 py-3 text-white text-base placeholder-gray-600 focus:outline-none focus:border-si-red transition-colors resize-none"
                                 />
                             </div>
+
+                            {formState === 'error' && (
+                                <div className="flex items-center gap-3 p-3 border border-red-500/30 bg-red-500/10 text-red-300 text-sm">
+                                    <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="square" strokeWidth="2" d="M12 9v2m0 4h.01M12 3l9.66 16.5H2.34L12 3z" />
+                                    </svg>
+                                    Error al enviar. Intente nuevamente o contáctenos por teléfono.
+                                </div>
+                            )}
+
                             <button
-                                type="button"
-                                className="group flex items-center justify-center gap-3 py-4 bg-si-red text-white font-black uppercase tracking-widest text-xs hover:bg-red-700 transition-all duration-300 mt-1 shadow-[3px_3px_0_rgba(192,0,0,0.3)] hover:shadow-[1px_1px_0_rgba(192,0,0,0.3)] hover:translate-y-[2px] hover:translate-x-[2px]"
+                                type="submit"
+                                disabled={formState === 'submitting'}
+                                className="group flex items-center justify-center gap-3 py-4 bg-si-red text-white font-black uppercase tracking-widest text-xs hover:bg-red-700 transition-all duration-300 mt-1 shadow-[3px_3px_0_rgba(192,0,0,0.3)] hover:shadow-[1px_1px_0_rgba(192,0,0,0.3)] hover:translate-y-[2px] hover:translate-x-[2px] disabled:opacity-60 disabled:pointer-events-none"
                             >
-                                Enviar Consulta
-                                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="square" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
+                                {formState === 'submitting' ? (
+                                    <>
+                                        <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                        </svg>
+                                        Enviando...
+                                    </>
+                                ) : (
+                                    <>
+                                        Enviar Consulta
+                                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="square" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
+                                    </>
+                                )}
                             </button>
                         </form>
+                        )}
                     </RevealOnScroll>
                 </div>
             </div>
