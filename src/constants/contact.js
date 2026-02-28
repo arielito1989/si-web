@@ -30,8 +30,12 @@ export const getWhatsAppUrl = () => {
 };
 
 export const getPhoneUrl = () => `tel:${CONTACT.phone.raw}`;
-export const getEmailUrl = () => `mailto:${CONTACT.email.full}`;
+export const getEmailUrl = () => `mailto:${CONTACT.email.full}?subject=${encodeURIComponent('Consulta desde sitio web')}`;
 export const getGmailComposeUrl = () => {
   const subject = encodeURIComponent('Consulta desde sitio web');
   return `https://mail.google.com/mail/?view=cm&to=${CONTACT.email.full}&su=${subject}`;
+};
+export const getSmartEmailUrl = () => {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  return isMobile ? getEmailUrl() : getGmailComposeUrl();
 };
