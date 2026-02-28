@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-si-red: #c00000;
+  --color-si-bg: #f7f7f7;
+  --color-si-text: #333333;
+  --font-sans: 'Barlow', system-ui, sans-serif;
+  --font-heading: 'Oswald', system-ui, sans-serif;
+
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+  --animate-scale-x-left: scale-x-left 0.8s ease-out forwards;
+  --animate-fade-in: fade-in 0.3s ease-out forwards;
+  --animate-scale-up: scale-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scroll-line: scroll-line 2.2s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2s ease-out infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+
+  @keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scale-x-left {
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+
+  @keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes scale-up {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes scroll-line {
+    0% { transform: translateY(-100%); opacity: 0; }
+    25% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { transform: translateY(300%); opacity: 0; }
+  }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.9); opacity: 0; }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes skeleton-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes swipe-hint {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-4px); }
+  }
+
+  @keyframes swipe-hint-reverse {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-si-bg);
+    color: var(--color-si-text);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ebebeb;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-si-red);
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #900000;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-si-red) #ebebeb;
+  }
+
+  /* Better text selection */
+  ::selection {
+    background-color: var(--color-si-red);
+    color: #ffffff;
+  }
+}
