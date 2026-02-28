@@ -54,10 +54,8 @@ export default function ProjectsGallery() {
             client: "Planta Industrial",
             location: "Zona Norte, Buenos Aires",
             materials: "Acero estructural, chapa galvanizada",
-            duration: "4 meses"
-        },
-        {
-            id: 2, title: "Red Contra Incendios", category: "Seguridad",
+            duration: "—"
+        },category: "Seguridad",
             images: ["/FOTOS/redincendio1.webp", "/FOTOS/redincendio2.webp", "/FOTOS/redincendio3.webp"],
             description: "Implementación de sistema completo incluyendo sala de bombas y red de rociadores bajo norma.",
             client: "Complejo Industrial",
@@ -67,7 +65,7 @@ export default function ProjectsGallery() {
         },
         {
             id: 3, title: "Tuberías Sanitarias", category: "Tuberías",
-            images: ["/FOTOS/aceroinox.webp", "/FOTOS/tubos02.webp"],
+            images: ["/FOTOS/aceroinox.webp"],
             description: "Tendido de cañerías en acero inoxidable 316L y soldadura orbital de alta precisión.",
             client: "Laboratorio Farmacéutico",
             location: "Pte. Derqui, Buenos Aires",
@@ -109,15 +107,6 @@ export default function ProjectsGallery() {
             location: "San Martín, Buenos Aires",
             materials: "Tubos de humo, válvulas OPDS",
             duration: "6 semanas"
-        },
-        {
-            id: 8, title: "Estructuras Metálicas", category: "Infraestructura",
-            images: ["/FOTOS/naves3.webp", "/FOTOS/naves4.webp"],
-            description: "Fabricación y montaje de puentes grúa y plataformas de acceso para mantenimiento.",
-            client: "Depósito Logístico",
-            location: "Escobar, Buenos Aires",
-            materials: "Perfilería de acero, soldadura MIG",
-            duration: "2 meses"
         },
         {
             id: 9, title: "Tanques Industriales", category: "Fabricación",
