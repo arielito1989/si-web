@@ -81,6 +81,7 @@ si-web/
 
 ### `Navbar.jsx`
 - Barra fija con fondo transparente → blur/blanco al hacer scroll
+- **Logo más grande** (`h-16`) en posición inicial, se reduce a `h-9` al hacer scroll
 - **Barra de progreso de lectura** (roja, 3px, top) que crece con el scroll
 - **Detección de sección activa** via `IntersectionObserver` — subraya el link correspondiente
 - Menú hamburguesa animado en mobile (3 barras con transform CSS)
@@ -103,24 +104,24 @@ si-web/
 - Números grandes (`text-6xl sm:text-7xl`) en rojo; etiquetas `text-base font-black`
 
 ### `ServicesSection.jsx`
-- **5 tarjetas reales elevadas** con `border`, `shadow`, `hover:-translate-y-2` y sombra que se intensifica
-- Sección con fondo `bg-si-bg` para que las tarjetas blancas resalten
+- **6 tarjetas de servicios** elevadas con `border`, `shadow`, `hover:-translate-y-2` y sombra que se intensifica
+- Header con fondo translúcido (`bg-white/50 backdrop-blur-sm`) y borde rojo para máxima legibilidad sobre la imagen de fondo
+- Imagen de fondo con overlay `bg-si-bg/45` para mayor nitidez
 - Barra superior por tarjeta (gris → roja en hover)
 - Ícono SVG por servicio + número fantasma de fondo
-- Bullets de items `text-base text-gray-600`
-- CTA "Consultar disponibilidad" siempre visible (gris → rojo en hover)
+- Servicios: Calderas y Presión, Piping, Sistemas de Seguridad, Fabricación e Infraestructura, Electricidad y Automatización, Aislación Térmica
+- CTA inferior con fondo `bg-white/60 backdrop-blur-sm` para legibilidad
 - Grid responsive: 1 columna (mobile) → 2 columnas (tablet) → 3 columnas (desktop)
 
 ### `ProjectsGallery.jsx`
 - **Filtros por categoría** (Todos / Infraestructura / Seguridad / Tuberías / etc.) con conteo visible en todos los filtros
 - **Animación de transición suave** (fade opacity) al cambiar de filtro
-- Grid `1→2→3 columnas` con efecto grayscale → color en hover + borde rojo
-- **Tarjetas de tamaño variable**: proyectos destacados ocupan `col-span-2` con `aspect-[16/9]`, el resto `aspect-square`
-- **Badge "★ Destacado"** siempre visible (amber) en proyectos principales
+- Grid uniforme `1→2→3 columnas` con `aspect-square`, efecto grayscale → color en hover + borde rojo
 - **Ícono de galería/lupa** centrado que aparece en hover, indicando que la tarjeta es clickeable
 - **Skeleton placeholder** animado (`skeleton-pulse`) mientras cargan las imágenes
 - **`loading="lazy"`** en las imágenes del grid para mejor performance inicial
-- **CTA "Solicitar Presupuesto"** al final de la sección con estilo shadow-press
+- **Subtítulo** con `text-2xl font-semibold` y borde rojo izquierdo para alta legibilidad
+- **CTA "Solicitar Presupuesto"** banner oscuro (#111) con grid industrial overlay y botón rojo shadow-press
 - **Lightbox personalizado** sin librerías externas:
   - Panel de imagen (62%) + panel de info lateral
   - **Contador de imagen** "2 / 4" en esquina superior izquierda
@@ -128,10 +129,8 @@ si-web/
   - **Indicador de swipe** "← Deslizá →" en mobile (desaparece tras primer gesto)
   - **Bloqueo de scroll del body** cuando el lightbox está abierto
   - Thumbnails interactivos con borde activo en rojo
-  - Indicadores de puntos animados
   - **Ficha técnica del proyecto**: cliente, ubicación, materiales, duración (grid 2×2 con iconos)
-  - Badge "★ Destacado" en el panel lateral para proyectos principales
-- Datos del proyecto: título, descripción, categoría + **cliente, ubicación, materiales, duración**
+- 8 proyectos: Naves Industriales, Red Contra Incendios, Tuberías Sanitarias, Conexiones Inoxidables, Tanques Industriales, etc.
 
 ### `ContactFooter.jsx`
 - Header con título impactante `text-5xl–7xl`
@@ -250,6 +249,27 @@ location / {
 ---
 
 ## 📝 Changelog
+
+### 2026-02-28 — Mejoras en Servicios, Proyectos y Navbar
+
+**Servicios (`ServicesSection.jsx`):**
+1. **Header con fondo translúcido** — `bg-white/50 backdrop-blur-sm` con borde rojo izquierdo para legibilidad sobre la imagen de fondo
+2. **Overlay ajustado** — De `bg-si-bg/65` a `bg-si-bg/45` para mayor nitidez de la imagen de fondo
+3. **CTA inferior legible** — Fondo `bg-white/60 backdrop-blur-sm` con texto en negrita y botón rojo
+4. **Renombrar "Ingeniería de Tuberías" a "Piping"** — Items principales: Acero al Carbono, Acero Inoxidable, PRFV
+5. **Nueva tarjeta "Aislación Térmica"** — Aislación de Cañerías/Equipos, Revestimiento con Chapa de Aluminio, Protección Térmica Industrial (ahora 6 especialidades)
+
+**Proyectos (`ProjectsGallery.jsx`):**
+6. **Subtítulo más legible** — `text-2xl font-semibold` con borde rojo izquierdo (sin padding/card adicional)
+7. **Eliminado conteo "9 proyectos"** — Evita contradicción con "200+ proyectos" en la sección de estadísticas
+8. **Grid uniforme 3×3** — Removido `featured` (col-span-2), todas las tarjetas en `aspect-square`
+9. **CTA inferior rediseñado** — Banner oscuro (#111) con grid industrial overlay, etiqueta "Consulta Gratuita" y botón rojo shadow-press
+10. **Eliminado proyecto "Estructuras Metálicas"** — Usaba las mismas fotos que Naves Industriales
+11. **Naves Industriales** — Duración cambiada a "—" (sin especificar tiempo)
+12. **Tuberías Sanitarias** — Removida imagen `tubos02.webp` (era una caldera, no correspondía)
+
+**Navbar:**
+13. **Logo más grande** — `h-16` en posición inicial (hero), se reduce a `h-9` al hacer scroll
 
 ### 2026-02-27 — Mejoras visuales en ProjectsGallery
 
