@@ -16,11 +16,11 @@ export default function ServicesSection() {
             )
         },
         {
-            title: "Ingeniería de Tuberías",
+            title: "Piping",
             items: [
-                "Cañerías en Acero Inoxidable Sanitario",
-                "Instalación de Cañerías en PRFV",
-                "Termofusión, Galvanizado y PVC"
+                "Cañerías en Acero al Carbono",
+                "Cañerías en Acero Inoxidable",
+                "Instalación de Cañerías en PRFV"
             ],
             icon: (
                 <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,6 +67,19 @@ export default function ServicesSection() {
                     <path strokeLinecap="square" strokeWidth="1.25" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
             )
+        },
+        {
+            title: "Aislación Térmica",
+            items: [
+                "Aislación de Cañerías y Equipos",
+                "Revestimiento con Chapa de Aluminio",
+                "Protección Térmica Industrial"
+            ],
+            icon: (
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="square" strokeWidth="1.25" d="M12 3v1m0 16v1m-8-9H3m18 0h-1m-2.636-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+            )
         }
     ];
 
@@ -87,7 +100,7 @@ export default function ServicesSection() {
                 {/* Section Header */}
                 <RevealOnScroll direction="up" className="mb-20">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                        <div className="flex flex-col gap-4 max-w-xl">
+                        <div className="flex flex-col gap-4 max-w-xl bg-white/50 backdrop-blur-sm p-6 border-l-4 border-si-red">
                             <div className="flex items-center gap-4">
                                 <span className="text-si-red font-black tracking-widest uppercase text-xs">/ Servicios</span>
                                 <div className="h-px bg-si-red/25 w-12" />
@@ -96,12 +109,12 @@ export default function ServicesSection() {
                                 Capacidad<br />
                                 <span className="text-si-red">Operativa</span>
                             </h2>
-                            <p className="text-xl text-si-text font-semibold border-l-2 border-si-red/40 pl-4 leading-relaxed">
+                            <p className="text-xl text-si-text font-bold leading-relaxed">
                                 Soluciones completas para la industria, desde el diseño hasta la puesta en marcha.
                             </p>
                         </div>
                         <div className="hidden md:flex flex-col items-end gap-2">
-                            <span className="text-xs uppercase tracking-widest text-si-text font-black">5 especialidades</span>
+                            <span className="text-xs uppercase tracking-widest text-si-text font-black">6 especialidades</span>
                             <div className="flex gap-1">
                                 {services.map((_, i) => (
                                     <div key={i} className="w-6 h-[3px] bg-si-red/20 last:bg-si-red" />
