@@ -33,6 +33,15 @@
 </head>
 
 <body>
+  <!-- Hidden form for Netlify Forms detection (SPA) -->
+  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+    <input name="bot-field" />
+    <input name="nombre" />
+    <input name="empresa" />
+    <input name="email" />
+    <textarea name="consulta"></textarea>
+  </form>
+
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
