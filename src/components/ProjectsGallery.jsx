@@ -66,22 +66,16 @@ export default function ProjectsGallery() {
             duration: "3 meses"
         },
         {
-            id: 3, title: "Tuberías Sanitarias", category: "Tuberías",
-            images: ["/FOTOS/aceroinox.webp"],
-            description: "Tendido de cañerías en acero inoxidable 316L y soldadura orbital de alta precisión.",
-            client: "Laboratorio Farmacéutico",
-            location: "Pte. Derqui, Buenos Aires",
-            materials: "Acero inoxidable 316L",
-            duration: "6 semanas"
-        },
-        {
-            id: 4, title: "Plantas de Tratamiento", category: "Ingeniería",
-            images: ["/FOTOS/conexioninox/conexionpulida1.webp", "/FOTOS/conexioninox/conexionpulida2.webp", "/FOTOS/conexioninox/conexionpulida3.webp"],
-            description: "Modificación y expansión de sistemas de filtrado con spooler en inoxidable.",
-            client: "Planta de Alimentos",
-            location: "Zona Oeste, Buenos Aires",
-            materials: "Inoxidable sanitario, juntas clamp",
-            duration: "2 meses"
+            id: 3, title: "Tuberías y Plantas de Tratamiento", category: "Tuberías",
+            images: [
+                "/FOTOS/conexioninox/conexionpulida1.webp", "/FOTOS/conexioninox/conexionpulida2.webp", "/FOTOS/conexioninox/conexionpulida3.webp",
+                "/FOTOS/conexioninox/conexionpulida4.jpg", "/FOTOS/conexioninox/conexionpulida5.jpg", "/FOTOS/conexioninox/conexionpulida6.jpeg"
+            ],
+            description: "Tendido de cañerías en acero inoxidable 316L y soldadura orbital para plantas de tratamiento, incluyendo modificación de sistemas de filtrado.",
+            client: "Sector Industrial",
+            location: "Buenos Aires",
+            materials: "Acero inoxidable 316L, sanitario, juntas clamp",
+            duration: "Varios meses"
         },
         {
             id: 5, title: "Instalaciones Eléctricas", category: "Automatización",
@@ -103,7 +97,10 @@ export default function ProjectsGallery() {
         },
         {
             id: 7, title: "Reparación de Calderas", category: "Calderas",
-            images: ["/FOTOS/caldera/caldera1.webp", "/FOTOS/caldera/caldera2.webp", "/FOTOS/caldera/caldera3.webp", "/FOTOS/caldera/caldera4.webp"],
+            images: [
+                "/FOTOS/caldera/caldera1.webp", "/FOTOS/caldera/caldera2.webp", "/FOTOS/caldera/caldera3.webp", "/FOTOS/caldera/caldera4.webp",
+                "/FOTOS/caldera-corrugado/caldera_tubo.jpeg", "/FOTOS/caldera-corrugado/caldera_tubo2.jpeg", "/FOTOS/caldera-corrugado/corrugado01.jpeg", "/FOTOS/caldera-corrugado/corrugado02.jpeg", "/FOTOS/caldera-corrugado/corrugado03.jpeg"
+            ],
             description: "Retubado completo y calibración de válvulas de seguridad con certificación OPDS.",
             client: "Industria Textil",
             location: "San Martín, Buenos Aires",
@@ -112,12 +109,40 @@ export default function ProjectsGallery() {
         },
         {
             id: 9, title: "Tanques Industriales", category: "Fabricación",
-            images: ["/FOTOS/inox/inox1.webp", "/FOTOS/inox/inox2.webp", "/FOTOS/inox/inox3.webp"],
+            images: [
+                "/FOTOS/inox/inox1.webp", "/FOTOS/inox/inox2.webp", "/FOTOS/inox/inox3.webp",
+                "/FOTOS/tanque-carbono/tanque-carbono01.jpeg", "/FOTOS/tanque-carbono/tanque-carbono02.jpeg", "/FOTOS/tanque-carbono/tanque-carbono03.jpeg", "/FOTOS/tanque-carbono/tanque-carbono04.jpeg"
+            ],
             description: "Construcción in situ de tanques de almacenamiento en acero inoxidable y acero al carbono.",
-            client: "Bodega Vitivinícola",
-            location: "Mendoza",
+            client: "Bodegas e Industria",
+            location: "Varias ubicaciones",
             materials: "Acero inoxidable 304, acero al carbono",
             duration: "3 meses"
+        },
+        {
+            id: 10, title: "Obras Públicas Santiago", category: "Infraestructura",
+            images: [
+                "/FOTOS/aceroinox.webp",
+                "/FOTOS/obra-santiago1/obra-santiago01.jpeg", "/FOTOS/obra-santiago1/obra-santiago02.jpeg", "/FOTOS/obra-santiago1/obra-santiago03.jpeg", "/FOTOS/obra-santiago1/obra-santiago04.jpeg",
+                "/FOTOS/obra-santiago2/obra-dos-santiago-estero01.jpeg", "/FOTOS/obra-santiago2/obra-dos-santiago-estero02.jpeg", "/FOTOS/obra-santiago2/obra-dos-santiago-estero03.jpeg", "/FOTOS/obra-santiago2/obra-dos-santiago-estero04.jpeg", "/FOTOS/obra-santiago2/obra-dos-santiago-estero05.jpeg", "/FOTOS/obra-santiago2/obra-dos-santiago-estero06.jpeg", "/FOTOS/obra-santiago2/obra-dos-santiago-estero07.jpeg"
+            ],
+            description: "Ejecución de dos obras integrales en simultáneo para el gobierno provincial. La galería documenta ambos desarrollos.",
+            client: "Gobierno de Santiago del Estero",
+            location: "Santiago del Estero",
+            materials: "Acero inoxidable y Acero al carbono",
+            duration: "—"
+        },
+        {
+            id: 11, title: "Traslado Planta de Agua", category: "Mantenimiento",
+            images: [
+                "/FOTOS/traslado-agua-potable/agua-potable01.jpeg", "/FOTOS/traslado-agua-potable/agua-potable02.jpeg", "/FOTOS/traslado-agua-potable/agua-potable03.jpeg", "/FOTOS/traslado-agua-potable/agua-potable04.jpeg",
+                "/FOTOS/traslado-agua-potable/agua-potable05.jpeg", "/FOTOS/traslado-agua-potable/agua-potable06.jpeg", "/FOTOS/traslado-agua-potable/agua-potable07.jpeg", "/FOTOS/traslado-agua-potable/agua-potable08.jpeg"
+            ],
+            description: "Traslado de plantas potabilizadoras desde Nordelta hacia nuevo predio, incluyendo conexiones y mantenimiento integral.",
+            client: "Planta Potabilizadora",
+            location: "Escobar (desde Nordelta)",
+            materials: "Cañerías, equipos de bombeo",
+            duration: "—"
         },
     ];
 

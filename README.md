@@ -228,7 +228,7 @@ Formulario de contacto funcional + datos de contacto + footer.
 **Layout 2 columnas:**
 - **Izquierda**: 3 items de contacto con iconos y hover:
   - 📞 `11 6867-4207` (Lunes a Viernes, 8–18hs) — abre `tel:` nativo
-  - 📧 `solucionesindustrialesns@gmail.com` — abre **Gmail Compose en nueva pestaña** con destinatario y asunto prellenados
+  - 📧 `solucionesindustrialesns@gmail.com` — **detección inteligente**: abre la **app Gmail** en mobile (vía `mailto:`) o **Gmail web en nueva pestaña** en desktop (vía `mail.google.com`). Asunto prellenado: "Consulta desde sitio web"
   - 📍 Presidente Derqui, Buenos Aires
 - **Derecha**: Formulario con **Netlify Forms**
 
@@ -362,13 +362,15 @@ Configurado en `index.html`:
 2. **Auditoría completa** — Verificado: sin secrets, API keys, console.logs, XSS, localStorage ni .env expuestos
 
 **Centralización de contacto (`src/constants/contact.js`):**
-3. **Nuevo archivo de constantes** — Teléfono, email, WhatsApp, dirección y helpers (`getWhatsAppUrl`, `getPhoneUrl`, `getGmailComposeUrl`)
+3. **Nuevo archivo de constantes** — Teléfono, email, WhatsApp, dirección y helpers (`getWhatsAppUrl`, `getPhoneUrl`, `getGmailComposeUrl`, `getEmailUrl`, `getSmartEmailUrl`)
 4. **Refactor de 4 componentes** — Navbar, ContactFooter, ProcessSection, FloatingWhatsApp usan constantes en vez de datos hardcodeados
 5. **Mantenibilidad** — Cambiar teléfono o email ahora requiere editar 1 solo archivo
 
-**Email — Gmail Compose:**
-6. **Link directo a Gmail** — Al clickear el email se abre `mail.google.com` en nueva pestaña (antes usaba `mailto:` que no hacía nada en muchas PCs)
-7. **Asunto prellenado** — "Consulta desde sitio web" aparece automáticamente en el campo asunto
+**Email — Detección inteligente de dispositivo (`getSmartEmailUrl`):**
+6. **Mobile** (Android/iPhone/iPad) — Usa `mailto:` que abre la **app Gmail** nativa directamente, sin pasar por el navegador
+7. **Desktop** — Usa `mail.google.com/mail/?view=cm` que abre **Gmail Compose en nueva pestaña**
+8. **Asunto prellenado** — "Consulta desde sitio web" en ambos casos
+9. **Detección vía `navigator.userAgent`** — Regex `/Android|iPhone|iPad|iPod/i`
 
 ### 2026-02-28 — Formulario de contacto funcional (Netlify Forms)
 
